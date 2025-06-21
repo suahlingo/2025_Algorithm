@@ -1,3 +1,5 @@
+package Class3;
+
 import java.io.*;
 import java.util.*;
 public class WelcomeKit_30802 {
