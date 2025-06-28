@@ -23,7 +23,7 @@ max_num = 0
 dxdy = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 while q:
     print(tomatos)
-    y, x, num = q.pop()
+    y, x, num = q.popleft()
     if num > max_num:
         max_num = num
     
@@ -31,7 +31,7 @@ while q:
         if y+dy < 0 or y+dy > N-1 or x+dx < 0 or x+dx > M-1:
             continue
 
-        if tomatos[y+dy][x+dx] == 0 or tomatos[y+dy][x+dx] > num + 1:
+        if tomatos[y+dy][x+dx] == 0:
             q.append((y+dy, x+dx, num+1))
             tomatos[y+dy][x+dx] = num + 1
 
