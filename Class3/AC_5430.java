@@ -5,21 +5,47 @@ import java.util.*;
 
 public class AC_5430 {
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws  IOException{
         Scanner sc = new Scanner(System.in);
 
         int t = sc.nextInt();
 
-        for(int i=0; i<t; i++){
+        for (int i = 0; i < t; i++) {
+            String cmd = sc.next();
             int n = sc.nextInt();
-            String fx="";
+            String arrStr = sc.next();
 
-            int[] ls = new int[n];
+            List<Integer> ls = new ArrayList<>();
+            arrStr = arrStr.substring(1, arrStr.length() - 1);
+            if (!arrStr.isEmpty()) {
+                String[] nums = arrStr.split(",");
+                for (String num : nums) {
+                    ls.add(Integer.parseInt(num));
+                }
+            }
 
-            //흠 .. R이랑 D case문으로 넣고 두개 합쳐지면 그거만큼 n개 원소 리스트 ls에다가 반환하기!
+            long dCount = cmd.chars().filter(c -> c == 'D').count();
+            if (dCount > ls.size()) {
+                System.out.println("error");
+                continue;
+            }
 
+            boolean rev = false;
+            for (char c : cmd.toCharArray()) {
+                if (c == 'R') {
+                    rev = !rev;
+                } else if (c == 'D') {
+                    if (rev) {
+                        ls.remove(ls.size() - 1);
+                    } else {
+                        ls.remove(0);
+                    }
+                }
+            }
+
+            if (rev) Collections.reverse(ls);
+            System.out.println(ls.toString().replace(" ", ""));
         }
-
     }
 
 }
