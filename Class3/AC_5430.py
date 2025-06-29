@@ -1,4 +1,5 @@
 import sys
+from collections import deque
 
 input = lambda: sys.stdin.readline().rstrip()
 
@@ -13,18 +14,27 @@ for _ in range(T):
         x_list = []
     else:
         x_list = list(map(int, x[1:-1].split(',')))
+    
+    q = deque(x_list)
 
+    is_reverse = False
     is_error = False
     for func in p:
         if func == 'R':
-            x_list.reverse()
+            is_reverse = not is_reverse
         
         elif func == 'D':
-            if len(x_list) == 0:
+            if len(q) == 0:
                 is_error = True
                 print('error')
                 break
+            if is_reverse:
+                q.pop()
+            else:
+                q.popleft()
 
-            x_list.pop(0)
     if not is_error:
-        print(x_list)
+        if is_reverse:
+            q.reverse()
+
+        print('['+','.join(list(map(str, q)))+']')
